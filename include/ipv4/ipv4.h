@@ -2,8 +2,8 @@
 #define IPV4_H
 
 #include <stdio.h>
-#include "ipv4_header.h"
-#include "ipv4_option.h"
+#include "ipv4header.h"
+#include "ipv4option.h"
 #include "../utils/base_convertion.h"
 
 

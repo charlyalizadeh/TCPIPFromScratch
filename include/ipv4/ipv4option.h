@@ -1,5 +1,5 @@
-#ifndef OPTION_H
-#define OPTION_H
+#ifndef IPV4_OPTION_H
+#define IPV4_OPTION_H
 
 #include <stddef.h>
 #include <stdio.h>
