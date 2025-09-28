@@ -4,10 +4,9 @@ A C implementation of the IP and TCP protocols built from the ground up.
 This project is intended purely for educational purposes, focusing on understanding
 how these protocols work internally.  
 No optimizations were made for performance—efficiency was not a goal.
-
-[X] IP
-[ ] TCP
-[ ] Sending and recieving the packet
+* [X] IP
+* [ ] TCP
+* [ ] Sending and recieving the packet
 
 # Valgrind output
 
