@@ -8,6 +8,15 @@ No optimizations were made for performance—efficiency was not a goal.
 * [ ] TCP
 * [ ] Sending and recieving the packet
 
+# Implementation motivation
+
+Some function are not really usefull in the way that they just take a struct pointer and a value
+and simply set a the value of a struct field to the value passed.
+I find the implementation cleaner this way, so that every field has the same interface. So instead
+of having `prot_set_field(prot, value)` for complex field and `prot->value = value` for simple field,
+all fields can be set using the first interface.
+Of course `prot->value = value` is still available, it's C struct you can do whatever you want.
+
 # Valgrind output
 
 ```
