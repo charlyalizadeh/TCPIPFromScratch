@@ -1,22 +1,18 @@
-TARGET=bin/pab
+TARGET=./bin/tcpip.a
 
 VPATH=src/
-SRCS=$(shell find . -name *.c)
+SRCS=$(shell find ./src/ipv4/ ./src/utils/ -name *.c)
 OBJS=$(subst src,obj,$(subst .c,.o,$(SRCS)))
 INCLUDES=includes
-FLAGS=-Wall -Wextra -Werror -I $(INCLUDES) $(LIBS)
-DEBUG_FLAGS=$(FLAGS) -g
+FLAGS=-Wall -Wextra -Werror -I $(INCLUDES)
 PROD_FLAGS=$(FLAGS)
 CC=gcc
 
 
 all: $(TARGET)
 
-debug: $(OBJS_DEBUG)
-	$(CC) $(SRCS) -o $(TARGET)_debug $(DEBUG_FLAGS)
-
 $(TARGET): $(OBJS)
-	$(CC) $(OBJS) -o $(TARGET) $(PROD_FLAGS)
+	ar rcs $(TARGET) $(OBJS)
 
 $(OBJS): obj/%.o: %.c build
 	$(CC) -c $< -o $@ $(PROD_FLAGS)
