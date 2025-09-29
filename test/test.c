@@ -1,5 +1,6 @@
 #include "test_ipv4_checksum.c"
 #include "test_ipv4option.c"
+#include "soft_assert.h"
 
 int main(void) {
     printf("====RUNNING TESTS====\n");
@@ -19,5 +20,5 @@ int main(void) {
     printf("- IPV4: Checksum computation\n");
     test_ipv4_checksum();
 
-    return 0;
+    return soft_assert_failed;
 }

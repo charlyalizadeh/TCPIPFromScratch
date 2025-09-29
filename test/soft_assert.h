@@ -1,6 +1,8 @@
 #ifndef SOFT_ASSERT_H
 #define SOFT_ASSERT_H
 
+int soft_assert_failed = 0;
+
 #define soft_assert(expr, fmt, ...) \
     do { \
         if (!(expr)) { \
@@ -8,6 +10,7 @@
                 "Assertion failed: %s (File %s, line %d)\n" \
                 "                " fmt "\n", \
                 #expr, __FILE__, __LINE__, ##__VA_ARGS__); \
+            soft_assert_failed = 1; \
         } \
     } while (0)
 
