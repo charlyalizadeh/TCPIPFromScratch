@@ -82,7 +82,7 @@ uint8_t ipv4option_pop_option(ipv4option_t* option) {
     size_t type_pos;
     uint8_t type;
 
-    type_pos = option->length - option->option_lengths[option->nb - 1] + 1;
+    type_pos = option->length - option->option_lengths[option->nb - 1];
     type = option->buffer[type_pos];
     option->length -= option->option_lengths[option->nb - 1];
     option->nb--;
