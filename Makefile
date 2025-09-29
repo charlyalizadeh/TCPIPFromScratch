@@ -19,6 +19,7 @@ $(OBJS): obj/%.o: %.c build
 build:
 	mkdir -p obj/ipv4
 	mkdir -p obj/utils
+	mkdir -p bin
 
 clean:
 	rm -f $(TARGET)
