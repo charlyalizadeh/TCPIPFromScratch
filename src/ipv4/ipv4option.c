@@ -79,16 +79,14 @@ uint8_t ipv4option_push_internet_timestamp(ipv4option_t* option, uint8_t length,
     return 1;
 }
 uint8_t ipv4option_pop_option(ipv4option_t* option) {
-    unsigned int nb;
-    size_t length;
+    size_t type_pos;
     uint8_t type;
 
-    nb = option->nb;
-    length = option->length;
-    type = option->buffer[length - 1];
-    for(size_t i = length - option->option_lengths[nb - 1]; i < length; i++)
-        option->buffer[option->length--] = 0;
-    option->option_lengths[option->nb--] = 0;
+    type_pos = option->length - option->option_lengths[option->nb - 1] + 1;
+    type = option->buffer[type_pos];
+    option->length -= option->option_lengths[option->nb - 1];
+    option->nb--;
+
     return type;
 }
 void ipv4option_from_bytes(uint8_t* buffer, ipv4option_t* option) {
