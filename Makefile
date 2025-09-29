@@ -4,7 +4,6 @@ VPATH=src/
 SRCS=$(shell find . -name *.c)
 OBJS=$(subst src,obj,$(subst .c,.o,$(SRCS)))
 INCLUDES=includes
-LIBS=-lncursesw
 FLAGS=-Wall -Wextra -Werror -I $(INCLUDES) $(LIBS)
 DEBUG_FLAGS=$(FLAGS) -g
 PROD_FLAGS=$(FLAGS)
