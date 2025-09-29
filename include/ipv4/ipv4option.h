@@ -9,9 +9,9 @@
 
 
 typedef struct {
-    unsigned int nb;
+    uint8_t nb;
     uint8_t option_lengths[40];
-    size_t length;
+    uint8_t length;
     uint8_t buffer[40];
 } ipv4option_t;
 
