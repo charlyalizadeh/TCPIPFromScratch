@@ -215,56 +215,6 @@ void ipv4header_set_protocol(ipv4header_t* header, enum IPv4Protocol protocol) {
     header->protocol = protocol;
 }
 
-/* Header Checksum */
-uint16_t ipv4header_get_16bit(ipv4header_t* header, uint8_t index) {
-    switch(index) {
-        case 0:
-            return header->version << 12 | header->length << 8 | header->type_of_service;
-            break;
-        case 1:
-            return header->total_length;
-            break;
-        case 2:
-            return header->identification;
-            break;
-        case 3:
-            return header->flags << 13 | header->fragment_offset;
-            break;
-        case 4:
-            return header->time_to_live << 8| header->protocol;
-            break;
-        case 5:
-            return 0;
-            break;
-        case 6:
-            return header->source >> 16;
-            break;
-        case 7:
-            return header->source & 0xFFFF;
-            break;
-        case 8:
-            return header->destination >> 16;
-            break;
-        case 9:
-            return header->destination & 0xFFFF;
-            break;
-    }
-    return 0;
-}
-uint16_t ipv4header_compute_header_checksum(ipv4header_t* header) {
-    uint32_t checksum;
-
-    checksum = 0;
-    for(int i = 0; i < 10; i++) {
-        checksum += ipv4header_get_16bit(header, i);
-    }
-    while((checksum & 0xFFFF0000) != 0) {
-        checksum = (checksum & 0x0000FFFF) + (checksum >> 16);
-    }
-
-    return ~checksum;
-}
-
 /* Address */
 void ipv4header_set_address_format(uint32_t* address, enum IPv4AddressFormat format) {
     switch(format) {

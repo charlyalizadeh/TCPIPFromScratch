@@ -21,5 +21,9 @@ void ipv4_print_dec(ipv4_t* ipv4);
 void ipv4_print_hex(ipv4_t* ipv4);
 void ipv4_print_bin(ipv4_t* ipv4);
 
+/* Header Checksum */
+uint16_t ipv4_get_16bit(const ipv4header_t* header, uint8_t index);
+uint16_t ipv4_compute_header_checksum(ipv4_t* ipv4);
+
 
 #endif

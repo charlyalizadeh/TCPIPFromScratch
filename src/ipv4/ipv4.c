@@ -67,3 +67,36 @@ void ipv4_print_bin(ipv4_t* ipv4) {
     printf("Source Address: "); dec2bin_print(ipv4->header.source, 32); printf("\n");
     printf("Destination Address: "); dec2bin_print(ipv4->header.destination, 32); printf("\n");
 }
+
+/* Header Checksum */
+uint16_t ipv4header_get_16bit(const ipv4header_t* header, uint8_t index) {
+    switch(index) {
+        case 0: return header->version << 12 | header->length << 8 | header->type_of_service;
+        case 1: return header->total_length;
+        case 2: return header->identification;
+        case 3: return header->flags << 13 | header->fragment_offset;
+        case 4: return header->time_to_live << 8| header->protocol;
+        case 5: return 0;
+        case 6: return header->source >> 16;
+        case 7: return header->source & 0xFFFF;
+        case 8: return header->destination >> 16;
+        case 9: return header->destination & 0xFFFF;
+    }
+    return 0;
+}
+uint16_t ipv4_compute_header_checksum(ipv4_t* ipv4) {
+    uint32_t checksum;
+
+    checksum = 0;
+    for(int i = 0; i < 10; i++) {
+        checksum += ipv4header_get_16bit(&ipv4->header, i);
+    }
+    for(size_t i = 0; i < ipv4->option.length; i++) {
+        checksum += ipv4->option.buffer[i];
+    }
+    while((checksum & 0xFFFF0000) != 0) {
+        checksum = (checksum & 0x0000FFFF) + (checksum >> 16);
+    }
+
+    return ~checksum;
+}

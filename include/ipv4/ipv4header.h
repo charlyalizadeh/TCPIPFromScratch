@@ -98,10 +98,6 @@ void ipv4header_set_time_to_live(ipv4header_t* header, uint8_t time_to_live);
 /* Protocol */
 void ipv4header_set_protocol(ipv4header_t* header, enum IPv4Protocol protocol);
 
-/* Header Checksum */
-uint16_t ipv4header_get_16bit(ipv4header_t* header, uint8_t index);
-uint16_t ipv4header_compute_header_checksum(ipv4header_t* header);
-
 /* Address */
 void ipv4header_set_address_format(uint32_t* address, enum IPv4AddressFormat format);
 void ipv4header_set_address_network(uint32_t* address,
