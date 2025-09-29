@@ -5,7 +5,6 @@ SRCS=$(shell find ./src/ipv4/ ./src/utils/ -name *.c)
 OBJS=$(subst src,obj,$(subst .c,.o,$(SRCS)))
 INCLUDES=includes
 FLAGS=-Wall -Wextra -Werror -I $(INCLUDES)
-PROD_FLAGS=$(FLAGS)
 CC=gcc
 
 
@@ -15,7 +14,7 @@ $(TARGET): $(OBJS)
 	ar rcs $(TARGET) $(OBJS)
 
 $(OBJS): obj/%.o: %.c build
-	$(CC) -c $< -o $@ $(PROD_FLAGS)
+	$(CC) -c $< -o $@ $(FLAGS)
 
 build:
 	mkdir -p obj/ipv4
@@ -30,3 +29,6 @@ fclean: clean
 	rm -f obj/utils/*.o
 
 re: fclean all
+
+test: $(TARGET)
+	$(CC) test/test.c -L./bin -l:tcpip.a -o ./bin/test -g

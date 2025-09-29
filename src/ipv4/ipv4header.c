@@ -234,33 +234,35 @@ uint16_t ipv4header_get_16bit(ipv4header_t* header, uint8_t index) {
             return header->time_to_live << 8| header->protocol;
             break;
         case 5:
-            return header->source >> 16;
+            return 0;
             break;
         case 6:
-            return header->source & 0xFFFF;
+            return header->source >> 16;
             break;
         case 7:
-            return header->destination >> 16;
+            return header->source & 0xFFFF;
             break;
         case 8:
+            return header->destination >> 16;
+            break;
+        case 9:
             return header->destination & 0xFFFF;
             break;
     }
     return 0;
 }
 uint16_t ipv4header_compute_header_checksum(ipv4header_t* header) {
-    int checksum;
-    int carry;
+    uint32_t checksum;
 
     checksum = 0;
-    for(int i = 0; i < 9; i++) {
+    for(int i = 0; i < 10; i++) {
         checksum += ipv4header_get_16bit(header, i);
     }
-    carry = checksum >> 16; // Retrieve the 5 hex digit
-    checksum &= ~(15 << 12); // Nullify the last 4 bits
-    checksum += carry;
-    checksum = ~checksum;
-    return checksum;
+    while((checksum & 0xFFFF0000) != 0) {
+        checksum = (checksum & 0x0000FFFF) + (checksum >> 16);
+    }
+
+    return ~checksum;
 }
 
 /* Address */
