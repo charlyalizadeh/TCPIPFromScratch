@@ -28,13 +28,13 @@ void ipv4option_security_init(ipv4option_security_t* option);
 void ipv4option_security_set_security(ipv4option_security_t* option, enum ipv4OptionSecurity security);
 
 /* Compartments */
-// TODO
+// TODO: Find documentation
 
 /* Handling Restrictions */
-// TODO
+// TODO: Find documentation
                                         
 /* Transmission Control Code */
-// TODO
+// TODO: Find documentation
 
 
 #endif                                  
