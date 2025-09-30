@@ -1,6 +1,8 @@
 #ifndef SOFT_ASSERT_H
 #define SOFT_ASSERT_H
 
+#include <stdio.h>
+
 int soft_assert_failed = 0;
 
 #define soft_assert(expr, fmt, ...) \
