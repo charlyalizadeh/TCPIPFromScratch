@@ -18,16 +18,16 @@ void ipv4option_sr_push_address(ipv4option_sr_t* sr, uint32_t address) {
         return;
     sr->route[sr->route_length] = address;
     sr->route_length++;
-    sr->length += 3;
+    sr->length += 4;
 }
 uint32_t ipv4option_sr_pop_address(ipv4option_sr_t* sr) {
     uint32_t address;
 
     if(sr->route_length == 0)
         return 0;
-    address = sr->route[sr->route_length];
-    sr->route[sr->route_length--] = 0;
-    sr->length -= 3;
+    address = sr->route[sr->route_length - 1];
+    sr->route[--sr->route_length] = 0;
+    sr->length -= 4;
     return address;
 }
 void ipv4option_sr_set_address(ipv4option_sr_t* sr, uint8_t i, uint32_t address) {
