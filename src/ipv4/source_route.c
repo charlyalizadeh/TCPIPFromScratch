@@ -30,7 +30,7 @@ uint32_t ipv4option_sr_pop_address(ipv4option_sr_t* sr) {
     sr->length -= 3;
     return address;
 }
-void ipv4option_sr_set_address(ipv4option_sr_t* sr, size_t i, uint32_t address) {
+void ipv4option_sr_set_address(ipv4option_sr_t* sr, uint8_t i, uint32_t address) {
     if(i >= sr->route_length)
         return;
     sr->route[i] = address;

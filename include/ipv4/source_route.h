@@ -23,7 +23,7 @@ void ipv4option_sr_init(ipv4option_sr_t* sr);
 void ipv4option_sr_set_type(ipv4option_sr_t* sr, enum IPv4OptionSourceRoute type);
 void ipv4option_sr_push_address(ipv4option_sr_t* sr, uint32_t address);
 uint32_t ipv4option_sr_pop_address(ipv4option_sr_t* sr);
-void ipv4option_sr_set_address(ipv4option_sr_t* sr, size_t i, uint32_t address);
+void ipv4option_sr_set_address(ipv4option_sr_t* sr, uint8_t i, uint32_t address);
 
 
 #endif
