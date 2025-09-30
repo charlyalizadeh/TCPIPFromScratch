@@ -41,18 +41,18 @@ uint8_t ipv4option_push_security(ipv4option_t* option, ipv4option_security_t* se
     return 1;
 }
 uint8_t ipv4option_push_sr(ipv4option_t* option, ipv4option_sr_t* sr) {
-    if(option->length + 3 + sr->route_length * 3 > 40)
+    if(option->length + sr->length > 40)
         return 0;
     option->buffer[option->length++] = sr->type;
     option->buffer[option->length++] = sr->length;
     option->buffer[option->length++] = sr->pointer;
     for(size_t i = 0; i < sr->route_length; i++) {
-        option->buffer[option->length++] = sr->route[i];
-        option->buffer[option->length++] = sr->route[i] >> 8;
-        option->buffer[option->length++] = sr->route[i] >> 16;
         option->buffer[option->length++] = sr->route[i] >> 24;
+        option->buffer[option->length++] = sr->route[i] >> 16;
+        option->buffer[option->length++] = sr->route[i] >> 8;
+        option->buffer[option->length++] = sr->route[i];
     }
-    option->option_lengths[option->nb++] = 3 + sr->route_length * 3;
+    option->option_lengths[option->nb++] = sr->length;
     return 1;
 }
 uint8_t ipv4option_push_stream_id(ipv4option_t* option, uint16_t stream_id) {
