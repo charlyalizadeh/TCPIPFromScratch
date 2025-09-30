@@ -53,6 +53,39 @@ void test_ipv4option_push_no_option() {
     soft_assert_equal_int(option.buffer[0], 1);
 }
 
+// Source route
+void test_ipv4option_push_sr() {
+    ipv4option_t option;
+    ipv4option_sr_t sr;
+    uint32_t addr1, addr2;
+
+    ipv4option_init(&option);
+    ipv4option_sr_init(&sr);
+
+    addr1 = 0xAAAAAAAA;
+    addr2 = 0xBBBBBBBB;
+    ipv4option_sr_set_type(&sr, LSRR);
+    ipv4option_sr_push_address(&sr, addr1);
+    ipv4option_sr_push_address(&sr, addr2);
+
+    ipv4option_push_sr(&option, &sr);
+    soft_assert_equal_int(option.nb, 1);
+    soft_assert_equal_int(option.option_lengths[0], sr.length);
+    soft_assert_equal_int(option.buffer[0], LSRR);
+    soft_assert_equal_int(option.buffer[1], sr.length);
+    soft_assert_equal_int(option.buffer[2], sr.pointer);
+
+    soft_assert_equal_int(option.buffer[3], addr1 >> 24);
+    soft_assert_equal_int(option.buffer[4], (addr1 >> 16) & 0xFF);
+    soft_assert_equal_int(option.buffer[5], (addr1 >> 8) & 0xFF);
+    soft_assert_equal_int(option.buffer[6], addr1 & 0xFF);
+
+    soft_assert_equal_int(option.buffer[7], addr2 >> 24);
+    soft_assert_equal_int(option.buffer[8], (addr2 >> 16) & 0xFF);
+    soft_assert_equal_int(option.buffer[9], (addr2 >> 8) & 0xFF);
+    soft_assert_equal_int(option.buffer[10], addr2 & 0xFF);
+}
+
 // Stream id
 void test_ipv4option_stream_id(ipv4option_t* option, uint16_t stream_id, size_t offset) {
     soft_assert_equal_int(option->buffer[offset], 136);

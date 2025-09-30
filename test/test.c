@@ -20,6 +20,7 @@ int main(void) {
     // // Soure route
     printf("- IPV4: Option (LSRR, SSRR, RR)\n");
     test_ipv4option_sr();
+    test_ipv4option_push_sr();
 
     // IPV4 Checksum
     printf("- IPV4: Checksum computation\n");
