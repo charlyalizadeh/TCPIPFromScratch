@@ -14,13 +14,13 @@ int main(void) {
     // // No option
     printf("- IPV4: Option (no option)\n");
     test_ipv4option_push_no_option();
-    // // Stream id
-    printf("- IPV4: Option (stream id)\n");
-    test_ipv4option_push_stream_id();
     // // Soure route
     printf("- IPV4: Option (LSRR, SSRR, RR)\n");
     test_ipv4option_sr();
     test_ipv4option_push_sr();
+    // // Stream id
+    printf("- IPV4: Option (stream id)\n");
+    test_ipv4option_push_stream_id();
 
     // IPV4 Checksum
     printf("- IPV4: Checksum computation\n");
