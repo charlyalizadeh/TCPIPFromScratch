@@ -1,5 +1,6 @@
 #include "test_ipv4_checksum.c"
 #include "test_ipv4option.c"
+#include "test_ipv4option_sr.c"
 #include "soft_assert.h"
 
 int main(void) {
@@ -15,6 +16,9 @@ int main(void) {
     // // Stream id
     printf("- IPV4: Option (stream id)\n");
     test_ipv4option_push_stream_id();
+    // // Soure route
+    printf("- IPV4: Option (LSRR, SSRR, RR)\n");
+    test_ipv4option_sr();
 
     // IPV4 Checksum
     printf("- IPV4: Checksum computation\n");
