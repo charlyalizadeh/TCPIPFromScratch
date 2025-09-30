@@ -12,7 +12,6 @@ void test_ipv4option_sr_init() {
         soft_assert_equal_int(sr.route[i], 0);
     soft_assert_equal_int(sr.route_length, 0);
 }
-
 void test_ipv4option_sr_set_type() {
     ipv4option_sr_t sr;
 
@@ -31,7 +30,6 @@ void test_ipv4option_sr_set_type() {
     ipv4option_sr_set_type(&sr, SSRR);
     soft_assert_equal_int(sr.type, SSRR);
 }
-
 void test_ipv4option_sr_push_address() {
     ipv4option_sr_t sr;
     uint32_t addr1, addr2;
@@ -51,7 +49,6 @@ void test_ipv4option_sr_push_address() {
     soft_assert_equal_int(sr.route[0], addr1);
     soft_assert_equal_int(sr.route[1], addr2);
 }
-
 void test_ipv4option_sr_pop_address() {
     ipv4option_sr_t sr;
     uint32_t addr1, addr2;
@@ -78,7 +75,6 @@ void test_ipv4option_sr_pop_address() {
     soft_assert_equal_int(sr.route_length, 0);
     soft_assert_equal_int(addr1, addr1_pop);
 }
-
 void test_ipv4option_sr_set_address() {
     ipv4option_sr_t sr;
     uint32_t addr1, addr2;
@@ -102,7 +98,6 @@ void test_ipv4option_sr_set_address() {
     ipv4option_sr_set_address(&sr, 3, 0x01ABCDEF);
     soft_assert_equal_int(sr.route[3], 0);
 }
-
 void test_ipv4option_sr() {
     test_ipv4option_sr_init();
     test_ipv4option_sr_set_type();
