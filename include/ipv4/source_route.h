@@ -16,7 +16,7 @@ typedef struct {
     uint8_t length;
     uint8_t pointer;
     uint32_t route[9];
-    size_t route_length;
+    uint8_t route_length;
 } ipv4option_sr_t;
 
 void ipv4option_sr_init(ipv4option_sr_t* sr);
