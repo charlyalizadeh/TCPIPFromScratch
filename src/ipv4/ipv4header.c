@@ -362,3 +362,46 @@ void ipv4header_to_bytes(ipv4header_t* header, uint8_t* buffer) {
     buffer[offset++] = header->destination >> 8;
     buffer[offset++] = header->destination;
 }
+
+void ipv4header_print_dec(ipv4header_t* header) {
+    printf("Version: %u\n", header->version);
+    printf("IHL: %u\n", header->length);
+    printf("Type of Service: %u\n", header->type_of_service);
+    printf("Total Length: %u\n", header->total_length);
+    printf("Identification: %u\n", header->identification);
+    printf("Flags: %u\n", header->flags);
+    printf("Fragment Offset: %u\n", header->fragment_offset);
+    printf("Time to Live: %u\n", header->time_to_live);
+    printf("Porotocol: %u\n", header->protocol);
+    printf("Header Checksum: %u\n", header->checksum);
+    printf("Source Address: %u\n", header->source);
+    printf("Destination Address: %u\n", header->destination);
+}
+void ipv4header_print_hex(ipv4header_t* header) {
+    printf("Version: %1X\n", header->version);
+    printf("IHL: %1X\n", header->length);
+    printf("Type of Service: %1X\n", header->type_of_service);
+    printf("Total Length: %2X\n", header->total_length);
+    printf("Identification: %2X\n", header->identification);
+    printf("Flags: %1X\n", header->flags);
+    printf("Fragment Offset: %2X\n", header->fragment_offset);
+    printf("Time to Live: %1X\n", header->time_to_live);
+    printf("Porotocol: %1X\n", header->protocol);
+    printf("Header Checksum: %2X\n", header->checksum);
+    printf("Source Address: %4X\n", header->source);
+    printf("Destination Address: %4X\n", header->destination);
+}
+void ipv4header_print_bin(ipv4header_t* header) {
+    printf("Version: "); dec2bin_print(header->version, 4); printf("\n");
+    printf("IHL: "); dec2bin_print(header->length, 4); printf("\n");
+    printf("Type of Service: "); dec2bin_print(header->type_of_service, 8); printf("\n");
+    printf("Total Length: "); dec2bin_print(header->total_length, 16); printf("\n");
+    printf("Identification: "); dec2bin_print(header->identification, 16); printf("\n");
+    printf("Flags: "); dec2bin_print(header->flags, 3); printf("\n");
+    printf("Fragment Offset: "); dec2bin_print(header->fragment_offset, 13); printf("\n");
+    printf("Time to Live: "); dec2bin_print(header->time_to_live, 8); printf("\n");
+    printf("Porotocol: "); dec2bin_print(header->protocol, 8); printf("\n");
+    printf("Header Checksum: "); dec2bin_print(header->checksum, 16); printf("\n");
+    printf("Source Address: "); dec2bin_print(header->source, 32); printf("\n");
+    printf("Destination Address: "); dec2bin_print(header->destination, 32); printf("\n");
+}

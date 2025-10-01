@@ -65,17 +65,14 @@ uint8_t ipv4option_push_stream_id(ipv4option_t* option, uint16_t stream_id) {
     option->option_lengths[option->nb++] = 4;
     return 1;
 }
-uint8_t ipv4option_push_internet_timestamp(ipv4option_t* option, uint8_t length, uint8_t flag) {
-    if((flag != 0 && flag != 1 && flag != 3) ||
-        length > 40 ||
-        option->length + length > 40)
+uint8_t ipv4option_push_internet_timestamp(ipv4option_t* option, uint8_t flag) {
+    if((flag != 0 && flag != 1 && flag != 3) || option->length + 4 > 40)
         return 0;
     option->buffer[option->length++] = 68;
-    option->buffer[option->length++] = length;
+    option->buffer[option->length++] = 4;
     option->buffer[option->length++] = 5;
     option->buffer[option->length++] = flag;
-    option->length += length - 4;
-    option->option_lengths[option->nb++] = length;
+    option->option_lengths[option->nb++] = 4;
     return 1;
 }
 uint8_t ipv4option_pop_option(ipv4option_t* option) {
@@ -110,4 +107,9 @@ void ipv4option_from_bytes(uint8_t* buffer, ipv4option_t* option) {
 }
 void ipv4option_to_bytes(ipv4option_t* option, uint8_t* buffer) {
     memcpy(buffer, option->buffer, option->length);
+}
+void ipv4option_print_dec(ipv4option_t* option) {
+    for(size_t i = 0; i < option->nb; i++) {
+
+    }
 }

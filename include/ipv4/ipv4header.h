@@ -3,6 +3,8 @@
 
 #include <stdint.h>
 #include <string.h>
+#include <stdio.h>
+#include "../utils/base_convertion.h"
 
 
 enum IPv4TOSPrecedence {
@@ -119,6 +121,9 @@ void ipv4header_set_destination(ipv4header_t* header,
 
 void ipv4header_from_bytes(uint8_t* buffer, ipv4header_t* header);
 void ipv4header_to_bytes(ipv4header_t* header, uint8_t* buffer);
+void ipv4header_print_dec(ipv4header_t* ipv4);
+void ipv4header_print_hex(ipv4header_t* ipv4);
+void ipv4header_print_bin(ipv4header_t* ipv4);
 
 
 #endif
