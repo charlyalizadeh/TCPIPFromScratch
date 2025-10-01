@@ -7,7 +7,7 @@ void ipv4_init(ipv4_t* ipv4) {
     ipv4header_init(&ipv4->header);
     ipv4option_init(&ipv4->option);
 }
-void ipv4_build_bytes(ipv4_t* ipv4, uint8_t* buffer) {
+void ipv4_build_bytes(uint8_t* buffer, ipv4_t* ipv4) {
     ipv4header_t* header;
     ipv4option_t* option;
 
@@ -15,15 +15,14 @@ void ipv4_build_bytes(ipv4_t* ipv4, uint8_t* buffer) {
     option = &ipv4->option;
     header->length = 20 + option->length;
     ipv4header_to_bytes(header, buffer);
-    ipv4option_to_bytes(option, buffer + 20);
+    ipv4option_to_bytes(buffer + 20, option);
     memcpy(buffer + header->length, ipv4->data, ipv4->data_length);
 }
-void ipv4_from_bytes(uint8_t* buffer, ipv4_t* ipv4) {
+void ipv4_from_bytes(ipv4_t* ipv4, uint8_t* buffer, uint8_t size) {
+    ipv4_init(ipv4);
     ipv4header_from_bytes(buffer, &ipv4->header);
-    if(ipv4->header.length <= 20)
-        ipv4option_init(&ipv4->option);
-    else
-        ipv4option_from_bytes(buffer, &ipv4->option);
+    if(size > 20)
+        ipv4option_from_bytes(&ipv4->option, buffer + 20, size - 20);
 }
 
 void ipv4_print_dec(ipv4_t* ipv4) {
@@ -62,8 +61,8 @@ uint16_t ipv4_compute_header_checksum(ipv4_t* ipv4) {
     for(int i = 0; i < 10; i++) {
         checksum += ipv4header_get_16bit(&ipv4->header, i);
     }
-    for(size_t i = 0; i < ipv4->option.length; i++) {
-        checksum += ipv4->option.buffer[i];
+    for(size_t i = 0; i < ipv4->option.length / 2; i++) {
+        checksum += ((uint16_t)ipv4->option.buffer[i * 2] << 8) | (uint16_t)ipv4->option.buffer[i * 2 + 1];
     }
     while((checksum & 0xFFFF0000) != 0) {
         checksum = (checksum & 0x0000FFFF) + (checksum >> 16);
