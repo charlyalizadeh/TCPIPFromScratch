@@ -3,10 +3,7 @@
 A C implementation of the IP and TCP protocols built from the ground up.  
 This project is intended purely for educational purposes, focusing on understanding
 how these protocols work internally.  
-No optimizations were made for performance—efficiency was not a goal.
-* [X] IP
-* [ ] TCP
-* [ ] Sending and recieving the packet
+No optimizations were made for performance, efficiency was not a goal.
 
 # Implementation motivation
 
@@ -16,6 +13,16 @@ I find the implementation cleaner this way, so that every field has the same int
 of having `prot_set_field(prot, value)` for complex field and `prot->value = value` for simple field,
 all fields can be set using the first interface.
 Of course `prot->value = value` is still available, it's C struct you can do whatever you want.
+
+# TODO
+
+* IP
+    - Rework the internet timestamp option
+    - Implement option not in RFC 791:
+        * Router Alert (RFC 2113)
+        * Stream Identifier clarification
+        * Internet Timestamp Variants
+* TCP
 
 # Valgrind output
 
