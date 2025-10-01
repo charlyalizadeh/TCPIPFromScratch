@@ -6,7 +6,7 @@
 #include <stdlib.h>
 
 
-uint8_t* read_bytes(char* path);
+uint8_t* read_bytes(char* path, uint8_t* size);
 void write_bytes(char* path, uint8_t* bytes, size_t n);
 
 

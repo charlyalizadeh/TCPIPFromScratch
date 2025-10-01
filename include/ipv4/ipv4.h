@@ -15,8 +15,8 @@ typedef struct {
 } ipv4_t;
 
 void ipv4_init(ipv4_t* ipv4);
-void ipv4_build_bytes(ipv4_t* ipv4, uint8_t* buffer);
-void ipv4_from_bytes(uint8_t* buffer, ipv4_t* ipv4);
+void ipv4_build_bytes(uint8_t* buffer, ipv4_t* ipv4);
+void ipv4_from_bytes(ipv4_t* ipv4, uint8_t* buffer, uint8_t size);
 void ipv4_print_dec(ipv4_t* ipv4);
 void ipv4_print_hex(ipv4_t* ipv4);
 void ipv4_print_bin(ipv4_t* ipv4);

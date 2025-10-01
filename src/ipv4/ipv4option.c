@@ -86,30 +86,63 @@ uint8_t ipv4option_pop_option(ipv4option_t* option) {
 
     return type;
 }
-void ipv4option_from_bytes(uint8_t* buffer, ipv4option_t* option) {
-    ipv4option_init(option);
-    memcpy(option->buffer, buffer, option->length);
+
+uint8_t ipv4option_get_length(uint8_t* buffer) {
+    uint8_t length;
+
+    length = 0;
     while(1) {
+        switch(buffer[length]) {
+            case 0:
+                length++;
+                return length;
+            case 1:
+                length++;
+                break;
+            default:
+                length += buffer[length + 1];
+                break;
+        }
+    }
+    return length;
+}
+// TODO: clean this
+uint8_t ipv4option_from_bytes(ipv4option_t* option, uint8_t* buffer, uint8_t length) {
+    uint8_t parse;
+    uint8_t return_type;
+
+    parse = 1;
+    ipv4option_init(option);
+    memcpy(option->buffer, buffer, length);
+    while(parse) {
         option->nb++;
         switch(buffer[option->length]) {
             case 0:
             case 1:
+                if(option->length >= 40) {
+                    parse = 0;
+                    return_type = 1;
+                    break;
+                }
                 option->option_lengths[option->nb - 1] = 1;
-                if(buffer[option->length++] == 0)
-                    return;
+                if(buffer[option->length++] == 0) {
+                    parse = 0;
+                    return_type = 0;
+                }
                 break;
             default:
+                if(option->length + buffer[option->length + 1] >= 40) {
+                    parse = 0;
+                    return_type = 1;
+                    break;
+                }
                 option->option_lengths[option->nb - 1] = buffer[option->length + 1];
                 option->length += buffer[option->length + 1];
                 break;
         }
     }
+    return return_type;
 }
-void ipv4option_to_bytes(ipv4option_t* option, uint8_t* buffer) {
+void ipv4option_to_bytes(uint8_t* buffer, ipv4option_t* option) {
     memcpy(buffer, option->buffer, option->length);
-}
-void ipv4option_print_dec(ipv4option_t* option) {
-    for(size_t i = 0; i < option->nb; i++) {
-
-    }
 }
