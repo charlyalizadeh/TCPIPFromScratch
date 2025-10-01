@@ -14,8 +14,6 @@ void test_ipv4_checksum() {
         sprintf(path, "./test/data/ip%d", i + 1);
         bytes = read_bytes(path, &size);
         ipv4_from_bytes(&ipv4, bytes, size);
-        printf("=======\n");
-        ipv4_print_hex(&ipv4);
         checksum = ipv4_compute_header_checksum(&ipv4);
         soft_assert_equal_int(checksum, ipv4.header.checksum);
         free(bytes);
