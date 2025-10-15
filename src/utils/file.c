@@ -2,7 +2,7 @@
 
 
 // Source: https://stackoverflow.com/questions/22059189/read-a-file-as-byte-array
-uint8_t* read_bytes(char* path, uint8_t* size) {
+uint8_t* read_bytes(char* path, long* size) {
     FILE *fileptr;
     uint8_t *buffer;
     long filelen;
