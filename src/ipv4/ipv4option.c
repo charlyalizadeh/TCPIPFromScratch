@@ -112,9 +112,10 @@ uint8_t ipv4option_from_bytes(ipv4option_t* option, uint8_t* buffer, uint8_t len
     uint8_t return_type;
 
     parse = 1;
+    return_type = 0;
     ipv4option_init(option);
     memcpy(option->buffer, buffer, length);
-    while(parse) {
+    while(parse && option->length < length) {
         option->nb++;
         switch(buffer[option->length]) {
             case 0:
@@ -125,10 +126,8 @@ uint8_t ipv4option_from_bytes(ipv4option_t* option, uint8_t* buffer, uint8_t len
                     break;
                 }
                 option->option_lengths[option->nb - 1] = 1;
-                if(buffer[option->length++] == 0) {
+                if(buffer[option->length++] == 0)
                     parse = 0;
-                    return_type = 0;
-                }
                 break;
             default:
                 if(option->length + buffer[option->length + 1] >= 40) {
