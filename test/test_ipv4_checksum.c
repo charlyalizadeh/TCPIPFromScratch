@@ -5,7 +5,7 @@
 
 void test_ipv4_checksum() {
     uint8_t* bytes;
-    uint8_t size;
+    long size;
     ipv4_t ipv4;
     uint16_t checksum;
     char path[16];
